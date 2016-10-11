@@ -14,10 +14,11 @@ config = {
     "port": 6667,
     "channel": "#Iaijutsu",
     "nickname": "Yamaneko",
-    "gmnick": ["Calmacil","MJ-Sama", "MJ", "Meujeu", "Calmaster", "Calmacil_"],
+    "gmnick": ["Calmacil", "MJ-Sama", "MJ", "Meujeu", "Calmacil_"],
     "datadir": "characters"
 }
 
 if __name__ == '__main__':
-    bot = FiveBot(config['server'], config['port'], config['channel'], config['nickname'])
+    bot = FiveBot(config['server'], config['port'], config['channel'],
+                  config['nickname'])
     bot.start()

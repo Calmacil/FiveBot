@@ -2,6 +2,7 @@
 
 from irc.bot import SingleServerIRCBot
 
+
 class FiveBot(SingleServerIRCBot):
     """ Extends the basic IRCBot
 
