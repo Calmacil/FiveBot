@@ -16,14 +16,6 @@ class DiceBag(object):
 
     format: Xk[ueml]Y [+/- dice or number]
     multiple throws are managed upper (one dicebag instanciated for each throw)
-
-    TODO:
-    o parser
-    o thrower
-    o unskilled (u modifier)
-    o emphasized (e modifier)
-    o explode on 9s (m modifier)
-    o keep lesser dice (l modifier)
     """
 
     def __init__(self, expression):
