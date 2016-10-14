@@ -6,10 +6,11 @@
 cli launchable for testing purposes
 """
 
-from sys import argv
 import re
 import random
 
+class DiceError(Exception):
+    pass
 
 class DiceBag(object):
     """ A simple pool of Roll n' Keep dice
@@ -20,7 +21,7 @@ class DiceBag(object):
 
     def __init__(self, expression):
         """ inits the bag """
-        self.chunks = expression
+        self.chunks = expression[:50]
 
         self.explode_threshold = 9  # explode on die > this var
         self.emphasized = False     # explodes on 1 also if True
@@ -59,8 +60,12 @@ class DiceBag(object):
                         if "l" in m.group(2):       # take lesser dice
                             self.keep_max = False
 
-                    self.dice += int(m.group(1)) * adds_factor
-                    self.keeps += int(m.group(3)) * adds_factor
+                    self.dice += int(m.group(1) * adds_factor)
+                    self.keeps += int(m.group(3) * adds_factor)
+
+        
+        if self.keeps > self.dice:
+            self.keeps = self.dice
 
     def roll(self):
         """ Rolls the dice and return the result
@@ -68,6 +73,9 @@ class DiceBag(object):
         str format: [die(, die)+] : total
         """
         results = []
+        
+        if self.dice > 20:
+            raise DiceError("Oh là, cuistre! Pas plus de 20 dés, ou il va t’arriver des bricoles!")
 
         for die in range(self.dice):
             t = random.randint(1, 10)
@@ -98,5 +106,7 @@ class DiceBag(object):
         return sum(die_result)
 
 if __name__ == '__main__':
+    
+    from sys import argv
     bag = DiceBag(argv[1:])
-    print bag.roll()
+    print(bag.roll())
