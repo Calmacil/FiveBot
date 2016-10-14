@@ -75,7 +75,8 @@ class DiceBag(object):
         results = []
         
         if self.dice > 20:
-            raise DiceError("Oh là, cuistre! Pas plus de 20 dés, ou il va t’arriver des bricoles!")
+            raise DiceError("Oh là, cuistre! Pas plus de 20 dés, ou il va " +
+                            "t’arriver des bricoles!")
 
         for die in range(self.dice):
             t = random.randint(1, 10)
