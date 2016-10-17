@@ -122,10 +122,12 @@ def on_message(msg):
         print("Roll detected")
         bag = DiceBag(content)
         try:
-            resp = "%s a lancé %s et a obtenu %s\n%s" % (user_nick,
-                                                         " ".join(content),
-                                                         bag.roll(),
-                                                         comment)
+            #resp = "%s a lancé %s et a obtenu %s\n%s" % (user_nick,
+            #                                             " ".join(content),
+            #                                             bag.roll(),
+            #                                             comment)
+            resp = "%s a lancé %s et a obtenu %s" % (user_nick, " ".join(content), bag.roll())
+            if comment: resp += "\n%s" % (comment)
         except DiceError as e:
             resp = e.args[0]
         
@@ -140,11 +142,9 @@ def on_message(msg):
             cmd = m.roll + " ".join(content[1:])
             bag = DiceBag(cmd.split(" "))
             try:
-                resp = "%s a lancé %s et a obtenu %s\n##%s\n%s" % (user_nick,
-                                                                 cmd,
-                                                                 bag.roll(),
-                                                                 m.comment,
-                                                                 comment)
+                resp = "%s a lancé %s et a obtenu %s" % (user_nick,cmd, bag.roll())
+                if m.comment is not None: resp += "\n# %s" % m.comment
+                if comment: resp += "\n# %s" % comment
             except DiceError as e:
                 resp = e.args[0]
             del bag
